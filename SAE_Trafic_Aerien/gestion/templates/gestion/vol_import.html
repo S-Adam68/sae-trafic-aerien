@@ -1,0 +1,57 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Import CSV{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Import de vols depuis un fichier CSV</h2>
+
+<div class="row">
+    <!-- Formulaire d'import -->
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header"><strong>Choisir le fichier</strong></div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Importer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explication du format attendu -->
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header"><strong>Format du fichier CSV</strong></div>
+            <div class="card-body">
+                <p>Le fichier doit être au format CSV avec les colonnes suivantes :</p>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr><th>Colonne</th><th>Description</th><th>Exemple</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>avion_id</td><td>Identifiant de l'avion (chiffre)</td><td>3</td></tr>
+                        <tr><td>pilote</td><td>Nom du pilote</td><td>Jean Dupont</td></tr>
+                        <tr><td>datetime_depart</td><td>Date et heure de départ</td><td>2024-06-01 10:00</td></tr>
+                        <tr><td>aeroport_arrivee_id</td><td>Identifiant de l'aéroport d'arrivée</td><td>2</td></tr>
+                        <tr><td>datetime_arrivee</td><td>Date et heure d'arrivée</td><td>2024-06-01 12:30</td></tr>
+                    </tbody>
+                </table>
+                <p class="text-muted small">L'aéroport de départ est le même pour tous les vols du fichier (choisi dans le formulaire).</p>
+                <p><strong>Exemple de fichier :</strong></p>
+                <pre class="bg-light p-2 rounded small">avion_id,pilote,datetime_depart,aeroport_arrivee_id,datetime_arrivee
+1,Jean Dupont,2024-06-01 10:00,2,2024-06-01 12:30
+2,Marie Martin,2024-06-01 11:00,3,2024-06-01 14:00</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

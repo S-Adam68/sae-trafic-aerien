@@ -1,0 +1,36 @@
+[
+  {"model": "gestion.aeroport", "pk": 1, "fields": {"nom": "Charles de Gaulle", "pays": "France"}},
+  {"model": "gestion.aeroport", "pk": 2, "fields": {"nom": "Orly", "pays": "France"}},
+  {"model": "gestion.aeroport", "pk": 3, "fields": {"nom": "Heathrow", "pays": "Royaume-Uni"}},
+  {"model": "gestion.aeroport", "pk": 4, "fields": {"nom": "Frankfurt Airport", "pays": "Allemagne"}},
+  {"model": "gestion.aeroport", "pk": 5, "fields": {"nom": "Amsterdam Schiphol", "pays": "Pays-Bas"}},
+
+  {"model": "gestion.piste", "pk": 1, "fields": {"numero": "08L", "aeroport": 1, "longueur": 4200}},
+  {"model": "gestion.piste", "pk": 2, "fields": {"numero": "08R", "aeroport": 1, "longueur": 3900}},
+  {"model": "gestion.piste", "pk": 3, "fields": {"numero": "27L", "aeroport": 1, "longueur": 2700}},
+  {"model": "gestion.piste", "pk": 4, "fields": {"numero": "06", "aeroport": 2, "longueur": 3650}},
+  {"model": "gestion.piste", "pk": 5, "fields": {"numero": "24", "aeroport": 2, "longueur": 2400}},
+  {"model": "gestion.piste", "pk": 6, "fields": {"numero": "27L", "aeroport": 3, "longueur": 3902}},
+  {"model": "gestion.piste", "pk": 7, "fields": {"numero": "27R", "aeroport": 3, "longueur": 3660}},
+  {"model": "gestion.piste", "pk": 8, "fields": {"numero": "25C", "aeroport": 4, "longueur": 4000}},
+  {"model": "gestion.piste", "pk": 9, "fields": {"numero": "18L", "aeroport": 4, "longueur": 4000}},
+  {"model": "gestion.piste", "pk": 10, "fields": {"numero": "18R", "aeroport": 5, "longueur": 3800}},
+  {"model": "gestion.piste", "pk": 11, "fields": {"numero": "06", "aeroport": 5, "longueur": 3300}},
+
+  {"model": "gestion.compagnie", "pk": 1, "fields": {"nom": "Air France", "description": "Compagnie nationale française.", "pays_rattachement": "France"}},
+  {"model": "gestion.compagnie", "pk": 2, "fields": {"nom": "British Airways", "description": "Compagnie nationale britannique.", "pays_rattachement": "Royaume-Uni"}},
+  {"model": "gestion.compagnie", "pk": 3, "fields": {"nom": "Lufthansa", "description": "Compagnie nationale allemande.", "pays_rattachement": "Allemagne"}},
+  {"model": "gestion.compagnie", "pk": 4, "fields": {"nom": "EasyJet", "description": "Compagnie low-cost européenne.", "pays_rattachement": "Royaume-Uni"}},
+
+  {"model": "gestion.typeavion", "pk": 1, "fields": {"marque": "Airbus", "modele": "A320", "description": "Moyen-courrier très répandu, 150-180 passagers.", "image": "", "longueur_piste_necessaire": 2100}},
+  {"model": "gestion.typeavion", "pk": 2, "fields": {"marque": "Airbus", "modele": "A380", "description": "Très gros porteur long-courrier, 500-850 passagers.", "image": "", "longueur_piste_necessaire": 3100}},
+  {"model": "gestion.typeavion", "pk": 3, "fields": {"marque": "Boeing", "modele": "737-800", "description": "Moyen-courrier, 162-189 passagers.", "image": "", "longueur_piste_necessaire": 2090}},
+  {"model": "gestion.typeavion", "pk": 4, "fields": {"marque": "Boeing", "modele": "777-300ER", "description": "Long-courrier bimoteur, 300-550 passagers.", "image": "", "longueur_piste_necessaire": 3200}},
+  {"model": "gestion.typeavion", "pk": 5, "fields": {"marque": "ATR", "modele": "72-600", "description": "Turbopropulseur régional, 70-78 passagers.", "image": "", "longueur_piste_necessaire": 1290}},
+
+  {"model": "gestion.avion", "pk": 1, "fields": {"nom": "F-GKXA", "compagnie": 1, "modele": 1}},
+  {"model": "gestion.avion", "pk": 2, "fields": {"nom": "F-GSPS", "compagnie": 1, "modele": 2}},
+  {"model": "gestion.avion", "pk": 3, "fields": {"nom": "G-EUOA", "compagnie": 2, "modele": 3}},
+  {"model": "gestion.avion", "pk": 4, "fields": {"nom": "D-AIKH", "compagnie": 3, "modele": 4}},
+  {"model": "gestion.avion", "pk": 5, "fields": {"nom": "G-EZFA", "compagnie": 4, "modele": 1}}
+]

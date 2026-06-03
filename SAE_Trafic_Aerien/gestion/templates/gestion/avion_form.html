@@ -1,0 +1,25 @@
+{% extends 'gestion/base.html' %}
+{% block title %}{{ titre }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">{{ titre }}</h2>
+
+<div class="card" style="max-width: 500px;">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger small">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a href="{% url 'avion_list' %}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

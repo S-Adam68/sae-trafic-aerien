@@ -1,0 +1,125 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Fiche des vols{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Fiche des vols</h2>
+
+<!-- Formulaire de recherche -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">{{ form.aeroport.label }}</label>
+                    {{ form.aeroport }}
+                    {% if form.aeroport.errors %}<div class="text-danger small">{{ form.aeroport.errors }}</div>{% endif %}
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">{{ form.date_debut.label }}</label>
+                    {{ form.date_debut }}
+                    {% if form.date_debut.errors %}<div class="text-danger small">{{ form.date_debut.errors }}</div>{% endif %}
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">{{ form.date_fin.label }}</label>
+                    {{ form.date_fin }}
+                    {% if form.date_fin.errors %}<div class="text-danger small">{{ form.date_fin.errors }}</div>{% endif %}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">{{ form.sens.label }}</label>
+                    {{ form.sens }}
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Rechercher</button>
+                </div>
+            </div>
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger mt-2">{{ form.non_field_errors }}</div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<!-- Résultats : vols au départ -->
+{% if vols_depart %}
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <strong>Vols au départ ({{ vols_depart.count }} vol(s))</strong>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Vol #</th>
+                    <th>Heure départ</th>
+                    <th>Destination</th>
+                    <th>Avion</th>
+                    <th>Compagnie</th>
+                    <th>Pilote</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in vols_depart %}
+                <tr>
+                    <td>{{ v.pk }}</td>
+                    <td>{{ v.datetime_depart|date:"d/m/Y H:i" }}</td>
+                    <td>{{ v.aeroport_arrivee.nom }} ({{ v.aeroport_arrivee.pays }})</td>
+                    <td>{{ v.avion.nom }}</td>
+                    <td>{{ v.avion.compagnie.nom }}</td>
+                    <td>{{ v.pilote }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Résultats : vols à l'arrivée -->
+{% if vols_arrivee %}
+<div class="card mb-4">
+    <div class="card-header bg-success text-white">
+        <strong>Vols à destination ({{ vols_arrivee.count }} vol(s))</strong>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Vol #</th>
+                    <th>Heure arrivée</th>
+                    <th>Provenance</th>
+                    <th>Avion</th>
+                    <th>Compagnie</th>
+                    <th>Pilote</th>
+                    <th>Piste</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in vols_arrivee %}
+                <tr>
+                    <td>{{ v.pk }}</td>
+                    <td>{{ v.datetime_arrivee|date:"d/m/Y H:i" }}</td>
+                    <td>{{ v.aeroport_depart.nom }} ({{ v.aeroport_depart.pays }})</td>
+                    <td>{{ v.avion.nom }}</td>
+                    <td>{{ v.avion.compagnie.nom }}</td>
+                    <td>{{ v.pilote }}</td>
+                    <td>
+                        {% if v.piste_arrivee %}
+                            {{ v.piste_arrivee.numero }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Aucun résultat -->
+{% if not vols_depart and not vols_arrivee and request.GET %}
+<div class="alert alert-info">Aucun vol trouvé pour cette recherche.</div>
+{% endif %}
+
+{% endblock %}

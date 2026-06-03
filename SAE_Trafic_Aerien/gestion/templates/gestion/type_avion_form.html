@@ -1,0 +1,35 @@
+{% extends 'gestion/base.html' %}
+{% block title %}{{ titre }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">{{ titre }}</h2>
+
+<div class="card" style="max-width: 500px;">
+    <div class="card-body">
+        <!-- enctype nécessaire pour pouvoir envoyer une image -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <div class="form-text">{{ field.help_text }}</div>
+                {% endif %}
+                {% if field.errors %}
+                    <div class="text-danger small">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% if objet and objet.image %}
+            <div class="mb-3">
+                <p class="text-muted small">Image actuelle :</p>
+                <img src="{{ objet.image.url }}" style="max-height: 100px;" class="rounded">
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a href="{% url 'type_avion_list' %}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

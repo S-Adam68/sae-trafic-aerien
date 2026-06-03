@@ -1,0 +1,45 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Types d'avions{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Types d'avions</h2>
+    <a href="{% url 'type_avion_create' %}" class="btn btn-primary">+ Nouveau type</a>
+</div>
+
+<!-- Affichage en cartes -->
+<div class="row">
+    {% if types %}
+        {% for t in types %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                {% if t.image %}
+                <img src="{{ t.image.url }}" class="card-img-top" alt="{{ t }}" style="height: 160px; object-fit: cover;">
+                {% else %}
+                <div class="bg-light text-center py-4">
+                    <i class="bi bi-airplane fs-1 text-muted"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ t.marque }} {{ t.modele }}</h5>
+                    {% if t.description %}
+                    <p class="card-text text-muted small">{{ t.description|truncatechars:80 }}</p>
+                    {% endif %}
+                    <p class="mb-0">
+                        <span class="badge bg-warning text-dark">Piste min : {{ t.longueur_piste_necessaire }} m</span>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'type_avion_update' t.pk %}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                    <a href="{% url 'type_avion_delete' t.pk %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="col">
+        <p class="text-muted">Aucun type d'avion enregistré.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

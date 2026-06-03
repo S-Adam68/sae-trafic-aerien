@@ -1,0 +1,22 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Confirmer la suppression{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Confirmer la suppression</h2>
+
+<div class="card border-danger" style="max-width: 500px;">
+    <div class="card-header bg-danger text-white">
+        Êtes-vous sûr ?
+    </div>
+    <div class="card-body">
+        <p>Vous allez supprimer {{ type_objet }} :</p>
+        <p class="fw-bold fs-5">{{ objet }}</p>
+        <p class="text-danger">Cette action est irréversible.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Supprimer définitivement</button>
+            <a href="{% url retour_url %}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
