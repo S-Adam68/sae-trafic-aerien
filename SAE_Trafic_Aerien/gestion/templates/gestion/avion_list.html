@@ -1,0 +1,45 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Avions{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Liste des avions</h2>
+    <a href="{% url 'avion_create' %}" class="btn btn-primary">+ Nouvel avion</a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        {% if avions %}
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom / Immatriculation</th>
+                    <th>Compagnie</th>
+                    <th>Modèle</th>
+                    <th>Piste min requise</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in avions %}
+                <tr>
+                    <td>{{ a.pk }}</td>
+                    <td><strong>{{ a.nom }}</strong></td>
+                    <td>{{ a.compagnie.nom }}</td>
+                    <td>{{ a.modele }}</td>
+                    <td>{{ a.modele.longueur_piste_necessaire }} m</td>
+                    <td>
+                        <a href="{% url 'avion_update' a.pk %}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                        <a href="{% url 'avion_delete' a.pk %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-muted p-3">Aucun avion enregistré.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
