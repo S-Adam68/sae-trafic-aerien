@@ -1,0 +1,66 @@
+{% extends 'gestion/base.html' %}
+{% block title %}Vols{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Liste des vols</h2>
+    <div>
+        <a href="{% url 'vol_fiche' %}" class="btn btn-outline-secondary">Fiche vols</a>
+        <a href="{% url 'vol_import' %}" class="btn btn-outline-secondary">Import CSV</a>
+        <a href="{% url 'vol_create' %}" class="btn btn-primary">+ Nouveau vol</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        {% if vols %}
+        <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Avion</th>
+                    <th>Pilote</th>
+                    <th>Départ</th>
+                    <th>Date départ</th>
+                    <th>Arrivée</th>
+                    <th>Date arrivée</th>
+                    <th>Piste</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in vols %}
+                <tr>
+                    <td>{{ v.pk }}</td>
+                    <td>
+                        {{ v.avion.nom }}<br>
+                        <small class="text-muted">{{ v.avion.compagnie.nom }}</small>
+                    </td>
+                    <td>{{ v.pilote }}</td>
+                    <td>{{ v.aeroport_depart.nom }}</td>
+                    <td>{{ v.datetime_depart|date:"d/m/Y H:i" }}</td>
+                    <td>{{ v.aeroport_arrivee.nom }}</td>
+                    <td>{{ v.datetime_arrivee|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if v.piste_arrivee %}
+                            <span class="badge bg-success">{{ v.piste_arrivee.numero }}</span>
+                        {% else %}
+                            <span class="text-muted">-</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'vol_update' v.pk %}" class="btn btn-sm btn-outline-primary">Modifier</a>
+                        <a href="{% url 'vol_delete' v.pk %}" class="btn btn-sm btn-outline-danger">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        {% else %}
+        <p class="text-muted p-3">Aucun vol enregistré.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

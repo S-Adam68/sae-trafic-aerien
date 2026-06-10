@@ -1,0 +1,18 @@
+[Unit]
+Description=Gunicorn — SAE Trafic Aerien
+After=network.target
+
+[Service]
+User=osboxes
+WorkingDirectory=/home/osboxes/sae-trafic-aerien/SAE_Trafic_Aerien
+Environment="DB_ENGINE=mysql"
+Environment="DB_HOST=[IP_VM2]"
+Environment="DB_NAME=trafic_aerien_db"
+Environment="DB_USER=trafic_user"
+Environment="DB_PASSWORD=[MOT_DE_PASSE]"
+Environment="DB_PORT=3306"
+ExecStart=/home/osboxes/sae-trafic-aerien/SAE_Trafic_Aerien/env/bin/gunicorn trafic_aerien.wsgi:application --bind 127.0.0.1:8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

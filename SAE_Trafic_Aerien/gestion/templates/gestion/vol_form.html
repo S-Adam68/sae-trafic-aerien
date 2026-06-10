@@ -1,0 +1,73 @@
+{% extends 'gestion/base.html' %}
+{% block title %}{{ titre }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">{{ titre }}</h2>
+
+<!-- Message si une piste est proposée à une autre heure -->
+{% if suggestion %}
+<div class="alert alert-warning">
+    <strong>Attention :</strong> Aucune piste disponible à l'heure demandée.<br>
+    Prochain créneau disponible : <strong>{{ suggestion|date:"d/m/Y à H:i" }}</strong><br>
+    Modifiez l'heure d'arrivée et soumettez à nouveau.
+</div>
+{% endif %}
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-body">
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">{{ form.avion.label }}</label>
+                {{ form.avion }}
+                {% if form.avion.errors %}<div class="text-danger small">{{ form.avion.errors }}</div>{% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">{{ form.pilote.label }}</label>
+                {{ form.pilote }}
+                {% if form.pilote.errors %}<div class="text-danger small">{{ form.pilote.errors }}</div>{% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.aeroport_depart.label }}</label>
+                    {{ form.aeroport_depart }}
+                    {% if form.aeroport_depart.errors %}<div class="text-danger small">{{ form.aeroport_depart.errors }}</div>{% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.datetime_depart.label }}</label>
+                    {{ form.datetime_depart }}
+                    {% if form.datetime_depart.errors %}<div class="text-danger small">{{ form.datetime_depart.errors }}</div>{% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.aeroport_arrivee.label }}</label>
+                    {{ form.aeroport_arrivee }}
+                    {% if form.aeroport_arrivee.errors %}<div class="text-danger small">{{ form.aeroport_arrivee.errors }}</div>{% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.datetime_arrivee.label }}</label>
+                    {{ form.datetime_arrivee }}
+                    {% if form.datetime_arrivee.errors %}<div class="text-danger small">{{ form.datetime_arrivee.errors }}</div>{% endif %}
+                </div>
+            </div>
+
+            <p class="text-muted small">
+                La piste d'atterrissage sera assignée automatiquement selon le type d'avion et la disponibilité (10 min d'occupation par avion).
+            </p>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a href="{% url 'vol_list' %}" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
