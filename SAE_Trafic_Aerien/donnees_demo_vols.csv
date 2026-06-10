@@ -1,0 +1,6 @@
+avion_id,pilote,datetime_depart,aeroport_arrivee_id,datetime_arrivee
+1,Jean Dupont,2026-06-01 08:00,2,2026-06-01 09:30
+2,Marie Martin,2026-06-01 10:15,3,2026-06-01 12:00
+3,Pierre Bernard,2026-06-01 13:45,4,2026-06-01 15:10
+4,Sophie Leclerc,2026-06-01 16:20,5,2026-06-01 18:05
+5,Luc Moreau,2026-06-02 07:50,1,2026-06-02 09:25
